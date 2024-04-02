@@ -1,35 +1,66 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: ''
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Handle form submission logic here
+    console.log('Form submitted:', formData);
+    // You can send the formData to an API or perform any other action here
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      <h1>React Form Example</h1>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Username:
+          <input
+            type="text"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+          />
+        </label>
+        <br />
+        <label>
+          Email:
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+        </label>
+        <br />
+        <label>
+          Password:
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+        </label>
+        <br />
+        <button className='btn' type="submit">Submit</button>
+      </form>
+    </div>
+  );
+};
 
-export default App
+export default App;
